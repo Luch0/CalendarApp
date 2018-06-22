@@ -24,21 +24,12 @@ class CalendarViewController: UIViewController {
         }
     }
     
-//    var events = [Event]() {
-//        didSet {
-//            // TODO: weird UI problem must be fixed
-//            //calendarCollectionView.reloadData()
-//            calendarEventsTableView.reloadData()
-//        }
-//    }
-    
-        //private var months: [String] = []
+    //private var months: [String] = []
     
     var events = [Int: [Event]]() {
         didSet {
-            //dump(events)
             calendarEventsTableView.reloadData()
-            calendarEventsTableView.reloadData()
+            calendarCollectionView.reloadData()
         }
     }
     
@@ -94,7 +85,7 @@ extension CalendarViewController: CreateEventViewControllerDelegate {
 extension CalendarViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let currectSelectedDay = self.currentSelectedDay {
-            let oldIndexPath = IndexPath.init(row: currectSelectedDay-1, section: 0)
+            let oldIndexPath = IndexPath(row: currectSelectedDay-1, section: 0)
             let oldCalendarCell = collectionView.cellForItem(at: oldIndexPath) as! CalendarCollectionViewCell
             oldCalendarCell.calendarIndicatorView.layer.borderWidth = 0
             oldCalendarCell.calendarIndicatorView.layer.borderColor = UIColor.clear.cgColor
@@ -114,7 +105,23 @@ extension CalendarViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let calendarCell = collectionView.dequeueReusableCell(withReuseIdentifier: "calendar cell", for: indexPath) as! CalendarCollectionViewCell
+        if currentSelectedDay == indexPath.row + 1 {
+            calendarCell.calendarIndicatorView.layer.borderWidth = 1
+            calendarCell.calendarIndicatorView.layer.borderColor = UIColor.blue.cgColor
+        } else {
+            calendarCell.calendarIndicatorView.layer.borderWidth = 0
+            calendarCell.calendarIndicatorView.layer.borderColor = UIColor.clear.cgColor
+        }
         calendarCell.dayLabel.text = "\(indexPath.row + 1)"
+        guard let dayEvents = events[indexPath.row + 1] else {
+            calendarCell.calendarIndicatorView.backgroundColor = UIColor.clear
+            return calendarCell
+        }
+        if dayEvents.count >= 0 {
+            calendarCell.calendarIndicatorView.backgroundColor = UIColor.green
+        } else {
+            calendarCell.calendarIndicatorView.backgroundColor = UIColor.clear
+        }
         return calendarCell
     }
 }
@@ -128,7 +135,7 @@ extension CalendarViewController: UITableViewDataSource {
         guard let currentSelectedDay = currentSelectedDay else {
             return "Day Events"
         }
-        return currentSelectedDay.description
+        return "June \(currentSelectedDay), 2018"
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -143,7 +150,6 @@ extension CalendarViewController: UITableViewDataSource {
         guard let currentSelectedDay = currentSelectedDay, let arrayEvents =  events[currentSelectedDay] else {
             return UITableViewCell()
         }
-        print(arrayEvents)
         let event = arrayEvents[indexPath.row]
         eventCell.textLabel?.text = event.title
         eventCell.detailTextLabel?.text = event.description
