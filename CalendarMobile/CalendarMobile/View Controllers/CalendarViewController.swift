@@ -144,7 +144,6 @@ extension CalendarViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         print(arrayEvents)
-        //if arrayEvents.isEmpty { return UITableViewCell() }
         let event = arrayEvents[indexPath.row]
         eventCell.textLabel?.text = event.title
         eventCell.detailTextLabel?.text = event.description

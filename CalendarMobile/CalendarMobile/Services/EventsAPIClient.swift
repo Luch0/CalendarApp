@@ -49,7 +49,6 @@ struct EventsAPIClient {
                         organizedEvents[event.day] = [event]
                     }
                 }
-                dump(organizedEvents)
                 completionHandler(organizedEvents)
             }
             catch {
