@@ -29,17 +29,28 @@ struct EventsAPIClient {
         
     }
     
-    func getAllEvents(completionHandler: @escaping ([Event]) -> Void, errorHandler: @escaping (Error) -> Void) {
+    func getAllEvents(completionHandler: @escaping ([Int:[Event]]) -> Void, errorHandler: @escaping (Error) -> Void) {
         let stringURL = "http://localhost:8000/events/"
         guard let url = URL(string: stringURL) else {
             errorHandler(AppError.badURL(str: stringURL))
             return
         }
         let urlRequest = URLRequest(url: url)
+        var organizedEvents = [Int: [Event]]()
         let completion: (Data) -> Void = {(data: Data) in
             do {
                 let events = try JSONDecoder().decode([Event].self, from: data)
-                completionHandler(events)
+                for event in events {
+                    if let eventsSoFar = organizedEvents[event.day] {
+                        var toAddNewEvent: [Event] = eventsSoFar
+                        toAddNewEvent.append(event)
+                        organizedEvents.updateValue(toAddNewEvent, forKey: event.day)
+                    } else {
+                        organizedEvents[event.day] = [event]
+                    }
+                }
+                dump(organizedEvents)
+                completionHandler(organizedEvents)
             }
             catch {
                 errorHandler(AppError.couldNotParseJSON(rawError: error))

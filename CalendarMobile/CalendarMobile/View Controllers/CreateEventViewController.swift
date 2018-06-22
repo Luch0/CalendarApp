@@ -34,10 +34,6 @@ class CreateEventViewController: UIViewController {
             return
         }
         let eventToCreate = Event(_id: nil, title: eventTitleTextField.text!, description: eventDescriptionTextView.text, startTime: eventStartTimePicker.date.timeIntervalSince1970, endTime: eventEndTimePicker.date.timeIntervalSince1970, day: day, month: month, year: year)
-//        EventsAPIClient.manager.createEvent(event: eventToCreate, completionHandler: { (event) in
-//            // TODO: Fix delegate for reloading cells
-//            self.delegate?.didCreateNewEvent()
-//        }, errorHandler: { print($0) })
         EventsAPIClient.manager.createEvent(event: eventToCreate, completionHandler: { (response) in
             print((response as! HTTPURLResponse).statusCode)
             self.delegate?.didCreateNewEvent()

@@ -24,15 +24,23 @@ class CalendarViewController: UIViewController {
         }
     }
     
-    var events = [Event]() {
+//    var events = [Event]() {
+//        didSet {
+//            // TODO: weird UI problem must be fixed
+//            //calendarCollectionView.reloadData()
+//            calendarEventsTableView.reloadData()
+//        }
+//    }
+    
+        //private var months: [String] = []
+    
+    var events = [Int: [Event]]() {
         didSet {
-            // TODO: weird UI problem must be fixed
-            //calendarCollectionView.reloadData()
+            //dump(events)
+            calendarEventsTableView.reloadData()
             calendarEventsTableView.reloadData()
         }
     }
-    
-    //private var months: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,6 +103,7 @@ extension CalendarViewController: UICollectionViewDelegate {
         let calendarCell = collectionView.cellForItem(at: indexPath) as! CalendarCollectionViewCell
         calendarCell.calendarIndicatorView.layer.borderWidth = 1.0
         calendarCell.calendarIndicatorView.layer.borderColor = UIColor.blue.cgColor
+        calendarEventsTableView.reloadData()
     }
 }
 
@@ -116,16 +125,27 @@ extension CalendarViewController: UITableViewDelegate {
 
 extension CalendarViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Events"
+        guard let currentSelectedDay = currentSelectedDay else {
+            return "Day Events"
+        }
+        return currentSelectedDay.description
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return events.count
+        guard let currentSelectedDay = currentSelectedDay else {
+            return 0
+        }
+        return (events[currentSelectedDay] ?? []).count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let eventCell = tableView.dequeueReusableCell(withIdentifier: "event cell", for: indexPath)
-        let event = events[indexPath.row]
+        guard let currentSelectedDay = currentSelectedDay, let arrayEvents =  events[currentSelectedDay] else {
+            return UITableViewCell()
+        }
+        print(arrayEvents)
+        //if arrayEvents.isEmpty { return UITableViewCell() }
+        let event = arrayEvents[indexPath.row]
         eventCell.textLabel?.text = event.title
         eventCell.detailTextLabel?.text = event.description
         return eventCell
