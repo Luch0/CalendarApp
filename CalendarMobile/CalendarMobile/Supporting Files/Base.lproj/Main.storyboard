@@ -126,29 +126,50 @@
                                 <rect key="frame" x="0.0" y="386.5" width="375" height="280.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="event cell" textLabel="Sic-aj-l9w" detailTextLabel="lEb-X9-OxC" style="IBUITableViewCellStyleSubtitle" id="FwE-LR-qjA">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="event cell" rowHeight="100" id="FwE-LR-qjA" customClass="EventTableViewCell" customModule="CalendarMobile" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="FwE-LR-qjA" id="FqQ-Zq-9dS">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Sic-aj-l9w">
-                                                    <rect key="frame" x="15" y="5" width="33.5" height="20.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zbN-mf-5Hf">
+                                                    <rect key="frame" x="8" y="8" width="250.5" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lEb-X9-OxC">
-                                                    <rect key="frame" x="15" y="25.5" width="44" height="14.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BLL-dl-geO">
+                                                    <rect key="frame" x="8" y="36.5" width="359" height="55"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P7E-ug-jw8">
+                                                    <rect key="frame" x="266.5" y="8" width="100.5" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="BLL-dl-geO" firstAttribute="leading" secondItem="FqQ-Zq-9dS" secondAttribute="leading" constant="8" id="Ash-Ht-0mo"/>
+                                                <constraint firstItem="BLL-dl-geO" firstAttribute="top" secondItem="zbN-mf-5Hf" secondAttribute="bottom" constant="8" id="Ict-UH-2ub"/>
+                                                <constraint firstItem="P7E-ug-jw8" firstAttribute="leading" secondItem="zbN-mf-5Hf" secondAttribute="trailing" constant="8" id="JP4-us-Xzk"/>
+                                                <constraint firstAttribute="trailing" secondItem="P7E-ug-jw8" secondAttribute="trailing" constant="8" id="QSk-jj-bbp"/>
+                                                <constraint firstItem="P7E-ug-jw8" firstAttribute="top" secondItem="FqQ-Zq-9dS" secondAttribute="top" constant="8" id="YTt-oN-kQU"/>
+                                                <constraint firstAttribute="bottom" secondItem="BLL-dl-geO" secondAttribute="bottom" constant="8" id="gT9-S8-qx2"/>
+                                                <constraint firstItem="zbN-mf-5Hf" firstAttribute="leading" secondItem="FqQ-Zq-9dS" secondAttribute="leading" constant="8" id="mTP-Sf-lJY"/>
+                                                <constraint firstItem="P7E-ug-jw8" firstAttribute="width" secondItem="zbN-mf-5Hf" secondAttribute="width" multiplier="0.4" id="svd-ce-gz3"/>
+                                                <constraint firstItem="zbN-mf-5Hf" firstAttribute="top" secondItem="FqQ-Zq-9dS" secondAttribute="top" constant="8" id="wn7-af-vMi"/>
+                                                <constraint firstAttribute="trailing" secondItem="BLL-dl-geO" secondAttribute="trailing" constant="8" id="yWN-F5-e3P"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="eventDescription" destination="BLL-dl-geO" id="Gir-OI-poe"/>
+                                            <outlet property="eventTime" destination="P7E-ug-jw8" id="Qck-56-JZP"/>
+                                            <outlet property="eventTitle" destination="zbN-mf-5Hf" id="jHa-dN-hy3"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>

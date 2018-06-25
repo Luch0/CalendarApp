@@ -16,6 +16,7 @@
 		E25B4FD320D9A6B300B5A436 /* CalendarMobileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25B4FD220D9A6B300B5A436 /* CalendarMobileTests.swift */; };
 		E25B4FDE20D9A6B300B5A436 /* CalendarMobileUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25B4FDD20D9A6B300B5A436 /* CalendarMobileUITests.swift */; };
 		E25B4FEC20D9AACE00B5A436 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25B4FEB20D9AACE00B5A436 /* CalendarViewController.swift */; };
+		E2DDC5F520E15BA600A9E51C /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DDC5F420E15BA600A9E51C /* EventTableViewCell.swift */; };
 		E2F50F9C20DAAA2F00C62EF0 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F50F9B20DAAA2F00C62EF0 /* NetworkService.swift */; };
 		E2F50F9F20DAAB1200C62EF0 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F50F9E20DAAB1200C62EF0 /* Event.swift */; };
 		E2F50FA120DAAF5E00C62EF0 /* EventsAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F50FA020DAAF5E00C62EF0 /* EventsAPIClient.swift */; };
@@ -54,6 +55,7 @@
 		E25B4FDD20D9A6B300B5A436 /* CalendarMobileUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarMobileUITests.swift; sourceTree = "<group>"; };
 		E25B4FDF20D9A6B300B5A436 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E25B4FEB20D9AACE00B5A436 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
+		E2DDC5F420E15BA600A9E51C /* EventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
 		E2F50F9B20DAAA2F00C62EF0 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		E2F50F9E20DAAB1200C62EF0 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		E2F50FA020DAAF5E00C62EF0 /* EventsAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsAPIClient.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				E23B053420D9E42B00AADC19 /* CalendarCollectionViewCell.swift */,
+				E2DDC5F420E15BA600A9E51C /* EventTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -311,6 +314,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2DDC5F520E15BA600A9E51C /* EventTableViewCell.swift in Sources */,
 				E23B053520D9E42B00AADC19 /* CalendarCollectionViewCell.swift in Sources */,
 				E25B4FEC20D9AACE00B5A436 /* CalendarViewController.swift in Sources */,
 				E2F50FA120DAAF5E00C62EF0 /* EventsAPIClient.swift in Sources */,

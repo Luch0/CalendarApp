@@ -172,13 +172,14 @@ extension CalendarViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let eventCell = tableView.dequeueReusableCell(withIdentifier: "event cell", for: indexPath)
+        let eventCell = tableView.dequeueReusableCell(withIdentifier: "event cell", for: indexPath) as! EventTableViewCell
         guard let currentSelectedDay = currentSelectedDay, let arrayEvents =  events[currentSelectedDay] else {
             return UITableViewCell()
         }
         let event = arrayEvents[indexPath.row]
-        eventCell.textLabel?.text = event.title
-        eventCell.detailTextLabel?.text = "\(event.startTimeStr) - \(event.endTimeStr)"
+        eventCell.eventTitle.text = event.title
+        eventCell.eventTime.text = "\(event.startTimeStr) - \(event.endTimeStr)"
+        eventCell.eventDescription.text = event.description
         return eventCell
     }
 }
