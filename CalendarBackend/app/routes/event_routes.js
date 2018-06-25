@@ -8,7 +8,6 @@ module.exports = function(app, db) {
       if (err) {
         res.send({'error':'An error has occurred getting all events'});
       } else {
-        // res.send(JSON.parse(result));
         res.send(result);
       } 
     });
@@ -35,7 +34,9 @@ module.exports = function(app, db) {
                     endTime: parseFloat(req.body.endTime), 
                     day: parseInt(req.body.day), 
                     month: parseInt(req.body.month), 
-                    year: parseInt(req.body.year)};
+                    year: parseInt(req.body.year),
+                    startTimeStr: req.body.startTimeStr,
+                    endTimeStr: req.body.endTimeStr};
     db.collection('events').insert(event, (err, result) => {
       if (err) { 
         res.send({ 'error': 'An error has occurred saving event'}); 
@@ -64,11 +65,13 @@ module.exports = function(app, db) {
     const details = { '_id': new ObjectID(id) };
     const event = { title: req.body.title, 
                     description: req.body.description, 
-                    startTime: req.body.startTime, 
-                    endTime: req.body.endTime, 
-                    day: req.body.day, 
-                    month: req.body.month, 
-                    year: req.body.year };
+                    startTime: parseFloat(req.body.startTime), 
+                    endTime: parseFloat(req.body.endTime), 
+                    day: parseInt(req.body.day), 
+                    month: parseInt(req.body.month), 
+                    year: parseInt(req.body.year),
+                    startTimeStr: req.body.startTimeStr,
+                    endTimeStr: req.body.endTimeStr};
     db.collection('events').update(details, event, (err, result) => {
       if (err) {
           res.send({'error':'An error has occurred updating the event'});

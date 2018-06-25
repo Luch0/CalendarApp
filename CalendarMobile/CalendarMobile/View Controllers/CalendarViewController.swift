@@ -127,7 +127,11 @@ extension CalendarViewController: UICollectionViewDataSource {
 }
 
 extension CalendarViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        EventsAPIClient.manager.deleteEvent(event: events[currentSelectedDay!]![indexPath.row], completionHandler: { (response) in
+            self.loadEvents()
+        }, errorHandler: { print($0) })
+    }
 }
 
 extension CalendarViewController: UITableViewDataSource {
@@ -137,6 +141,28 @@ extension CalendarViewController: UITableViewDataSource {
         }
         return "June \(currentSelectedDay), 2018"
     }
+    
+//    func numberOfSections(in tableView: UITableView) -> Int {
+//        
+//        guard let currentSelectedDay = currentSelectedDay, let numEvents = events[currentSelectedDay] else {
+//            return 0
+//        }
+//        
+//        var numOfSections: Int = 0
+//        if numEvents.count > 0 {
+//            tableView.backgroundView = nil
+//            tableView.separatorStyle = .singleLine
+//            numOfSections = 1
+//        } else {
+//            let noDataLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
+//            noDataLabel.text = "No events this day"
+//            noDataLabel.font = UIFont.systemFont(ofSize: 22, weight: .medium)
+//            noDataLabel.textAlignment = .center
+//            tableView.backgroundView = noDataLabel
+//            tableView.separatorStyle = .none
+//        }
+//        return numOfSections
+//    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let currentSelectedDay = currentSelectedDay else {
@@ -152,7 +178,7 @@ extension CalendarViewController: UITableViewDataSource {
         }
         let event = arrayEvents[indexPath.row]
         eventCell.textLabel?.text = event.title
-        eventCell.detailTextLabel?.text = event.description
+        eventCell.detailTextLabel?.text = "\(event.startTimeStr) - \(event.endTimeStr)"
         return eventCell
     }
 }

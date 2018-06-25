@@ -33,7 +33,14 @@ class CreateEventViewController: UIViewController {
             print("error here")
             return
         }
-        let eventToCreate = Event(_id: nil, title: eventTitleTextField.text!, description: eventDescriptionTextView.text, startTime: eventStartTimePicker.date.timeIntervalSince1970, endTime: eventEndTimePicker.date.timeIntervalSince1970, day: day, month: month, year: year)
+        // TODO: Handle when minutes is less that 10
+        let units: Set<Calendar.Component> = [.hour, .minute]
+        let compsStart = Calendar.current.dateComponents(units, from: eventStartTimePicker.date)
+        let startTimeStr = "\(compsStart.hour!):\(compsStart.minute!)"
+        let compsEnd = Calendar.current.dateComponents(units, from: eventEndTimePicker.date)
+        let endTimeStr = "\(compsEnd.hour!):\(compsEnd.minute!)"
+        
+        let eventToCreate = Event(_id: nil, title: eventTitleTextField.text!, description: eventDescriptionTextView.text, startTime: eventStartTimePicker.date.timeIntervalSince1970, endTime: eventEndTimePicker.date.timeIntervalSince1970, day: day, month: month, year: year, startTimeStr: startTimeStr, endTimeStr: endTimeStr)
         EventsAPIClient.manager.createEvent(event: eventToCreate, completionHandler: { (response) in
             print((response as! HTTPURLResponse).statusCode)
             self.delegate?.didCreateNewEvent()

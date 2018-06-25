@@ -17,4 +17,6 @@ struct Event: Codable {
     let day: Int
     let month: Int
     let year: Int
+    let startTimeStr: String
+    let endTimeStr: String
 }

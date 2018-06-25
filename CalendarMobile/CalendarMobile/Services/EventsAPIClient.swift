@@ -21,7 +21,7 @@ struct EventsAPIClient {
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "POST"
         
-        let postString = "title=\(event.title)&description=\(event.description)&startTime=\(event.startTime)&endTime=\(event.endTime)&day=\(event.day)&month=\(event.month)&year=\(event.year)"
+        let postString = "title=\(event.title)&description=\(event.description)&startTime=\(event.startTime)&endTime=\(event.endTime)&day=\(event.day)&month=\(event.month)&year=\(event.year)&startTimeStr=\(event.startTimeStr)&endTimeStr=\(event.endTimeStr)"
         urlRequest.httpBody = postString.data(using: .utf8)
         NetworkService.manager.performDataTask(with: urlRequest, completionResponse: { (response) in
             completionHandler(response)
@@ -77,5 +77,22 @@ struct EventsAPIClient {
         }
         NetworkService.manager.performDataTask(with: urlRequest, completionHandler: completion, errorHandler: errorHandler)
     }
+    
+    
+    func deleteEvent(event: Event, completionHandler: @escaping (URLResponse) -> Void, errorHandler: @escaping (Error) -> Void) {
+        print(event._id!)
+        let stringURL = "http://localhost:8000/events/\(event._id!)"
+        guard let url = URL(string: stringURL) else {
+            errorHandler(AppError.badURL(str: stringURL))
+            return
+        }
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "DELETE"
+        NetworkService.manager.performDataTask(with: urlRequest, completionResponse: { (response) in
+            completionHandler(response)
+        }, errorHandler: { print($0) })
+        
+    }
+    
     
 }
