@@ -26,6 +26,8 @@ class CreateEventViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        eventTitleTextField.delegate = self
+        setupEventDescriptionToolBar()
     }
     
     @IBAction func createEventPressed(_ sender: UIBarButtonItem) {
@@ -33,12 +35,12 @@ class CreateEventViewController: UIViewController {
             print("error here")
             return
         }
-        // TODO: Handle when minutes is less that 10
+        
         let units: Set<Calendar.Component> = [.hour, .minute]
         let compsStart = Calendar.current.dateComponents(units, from: eventStartTimePicker.date)
-        let startTimeStr = "\(compsStart.hour!):\(compsStart.minute!)"
+        let startTimeStr = "\(compsStart.hour!):\(formatMinute(minutes: compsStart.minute!))"
         let compsEnd = Calendar.current.dateComponents(units, from: eventEndTimePicker.date)
-        let endTimeStr = "\(compsEnd.hour!):\(compsEnd.minute!)"
+        let endTimeStr = "\(compsEnd.hour!):\(formatMinute(minutes: compsEnd.minute!))"
         
         let eventToCreate = Event(_id: nil, title: eventTitleTextField.text!, description: eventDescriptionTextView.text, startTime: eventStartTimePicker.date.timeIntervalSince1970, endTime: eventEndTimePicker.date.timeIntervalSince1970, day: day, month: month, year: year, startTimeStr: startTimeStr, endTimeStr: endTimeStr)
         EventsAPIClient.manager.createEvent(event: eventToCreate, completionHandler: { (response) in
@@ -48,8 +50,31 @@ class CreateEventViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
+    private func formatMinute(minutes: Int) -> String {
+        if minutes < 10 { return "0\(minutes)" }
+        else { return "\(minutes)" }
+    }
+    
+    private func setupEventDescriptionToolBar() {
+        let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 44))
+        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonTapped))
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        toolBar.setItems([flexibleSpace, doneButton], animated: true)
+        eventDescriptionTextView.inputAccessoryView = toolBar
+    }
+    
+    @objc private func doneButtonTapped() {
+        eventDescriptionTextView.resignFirstResponder()
+    }
     
     @IBAction func cancelPressed(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension CreateEventViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

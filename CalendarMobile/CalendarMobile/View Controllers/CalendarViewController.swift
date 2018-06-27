@@ -24,8 +24,6 @@ class CalendarViewController: UIViewController {
         }
     }
     
-    //private var months: [String] = []
-    
     var events = [Int: [Event]]() {
         didSet {
             calendarEventsTableView.reloadData()
@@ -142,28 +140,34 @@ extension CalendarViewController: UITableViewDataSource {
         return "June \(currentSelectedDay), 2018"
     }
     
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        
-//        guard let currentSelectedDay = currentSelectedDay, let numEvents = events[currentSelectedDay] else {
-//            return 0
-//        }
-//        
-//        var numOfSections: Int = 0
-//        if numEvents.count > 0 {
-//            tableView.backgroundView = nil
-//            tableView.separatorStyle = .singleLine
-//            numOfSections = 1
-//        } else {
-//            let noDataLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
-//            noDataLabel.text = "No events this day"
-//            noDataLabel.font = UIFont.systemFont(ofSize: 22, weight: .medium)
-//            noDataLabel.textAlignment = .center
-//            tableView.backgroundView = noDataLabel
-//            tableView.separatorStyle = .none
-//        }
-//        return numOfSections
-//    }
+    func numberOfSections(in tableView: UITableView) -> Int {
     
+        guard let currentSelectedDay = currentSelectedDay, let numEvents = events[currentSelectedDay] else {
+            let noDataLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
+            noDataLabel.text = "No events"
+            noDataLabel.font = UIFont.systemFont(ofSize: 22, weight: .medium)
+            noDataLabel.textAlignment = .center
+            tableView.backgroundView = noDataLabel
+            tableView.separatorStyle = .none
+            return 0
+        }
+    
+        var numOfSections: Int = 0
+        if numEvents.count > 0 {
+            tableView.backgroundView = nil
+            tableView.separatorStyle = .singleLine
+            numOfSections = 1
+        } else {
+            let noDataLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
+            noDataLabel.text = "No events"
+            noDataLabel.font = UIFont.systemFont(ofSize: 22, weight: .medium)
+            noDataLabel.textAlignment = .center
+            tableView.backgroundView = noDataLabel
+            tableView.separatorStyle = .none
+        }
+        return numOfSections
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let currentSelectedDay = currentSelectedDay else {
             return 0

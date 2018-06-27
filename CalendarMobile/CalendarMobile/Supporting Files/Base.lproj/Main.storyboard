@@ -229,36 +229,94 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bro-2L-Hwm">
-                                <rect key="frame" x="33" y="87" width="309" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Event Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bro-2L-Hwm">
+                                <rect key="frame" x="37.5" y="88" width="300" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Description" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="mru-2v-EAS">
-                                <rect key="frame" x="33" y="143" width="309" height="139"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="7BR-E9-XAR">
-                                <rect key="frame" x="0.0" y="308" width="375" height="68"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <date key="date" timeIntervalSinceReferenceDate="551242640.91987205">
-                                    <!--2018-06-21 02:57:20 +0000-->
-                                </date>
-                            </datePicker>
-                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="GNS-mw-3Ob">
-                                <rect key="frame" x="0.0" y="366" width="375" height="63"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <date key="date" timeIntervalSinceReferenceDate="551242651.93499601">
-                                    <!--2018-06-21 02:57:31 +0000-->
-                                </date>
-                            </datePicker>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="zk3-Vg-hUi" userLabel="Event Description Stack View">
+                                <rect key="frame" x="38" y="126" width="300" height="133.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cDa-Vr-tJw">
+                                        <rect key="frame" x="0.0" y="0.0" width="114" height="33.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="mru-2v-EAS">
+                                        <rect key="frame" x="0.0" y="33.5" width="300" height="100"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="mru-2v-EAS" firstAttribute="width" secondItem="zk3-Vg-hUi" secondAttribute="width" id="a9P-UU-8gI"/>
+                                    <constraint firstItem="mru-2v-EAS" firstAttribute="height" secondItem="cDa-Vr-tJw" secondAttribute="height" multiplier="3" id="o4l-8d-bWg"/>
+                                </constraints>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="TcN-lX-R1A" userLabel="Start Time Stack View">
+                                <rect key="frame" x="37.5" y="267.5" width="300" height="48"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start Time:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tds-9u-KqX">
+                                        <rect key="frame" x="0.0" y="0.0" width="100" height="48"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="7BR-E9-XAR">
+                                        <rect key="frame" x="100" y="0.0" width="200" height="48"/>
+                                        <date key="date" timeIntervalSinceReferenceDate="551242640.91987205">
+                                            <!--2018-06-21 02:57:20 +0000-->
+                                        </date>
+                                    </datePicker>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="Tds-9u-KqX" firstAttribute="width" secondItem="7BR-E9-XAR" secondAttribute="width" multiplier="0.5" id="3QK-vu-ptL"/>
+                                    <constraint firstItem="Tds-9u-KqX" firstAttribute="height" secondItem="7BR-E9-XAR" secondAttribute="height" id="YKE-Mi-m1s"/>
+                                </constraints>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="623-51-FZu" userLabel="EndTime Stack View">
+                                <rect key="frame" x="38" y="323.5" width="300" height="53.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="End Time:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bD3-PG-aR8">
+                                        <rect key="frame" x="0.0" y="0.0" width="100" height="53.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="GNS-mw-3Ob">
+                                        <rect key="frame" x="100" y="0.0" width="200" height="53.5"/>
+                                        <date key="date" timeIntervalSinceReferenceDate="551242651.93499601">
+                                            <!--2018-06-21 02:57:31 +0000-->
+                                        </date>
+                                    </datePicker>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="bD3-PG-aR8" firstAttribute="width" secondItem="GNS-mw-3Ob" secondAttribute="width" multiplier="0.5" id="ojO-bq-ds2"/>
+                                    <constraint firstItem="GNS-mw-3Ob" firstAttribute="height" secondItem="bD3-PG-aR8" secondAttribute="height" id="sOz-uT-NOy"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="623-51-FZu" firstAttribute="height" secondItem="wdg-96-cto" secondAttribute="height" multiplier="0.08" id="6y8-Ay-wza"/>
+                            <constraint firstItem="bro-2L-Hwm" firstAttribute="centerX" secondItem="2MZ-vG-8zS" secondAttribute="centerX" id="MEL-vc-DFU"/>
+                            <constraint firstItem="TcN-lX-R1A" firstAttribute="centerX" secondItem="2MZ-vG-8zS" secondAttribute="centerX" id="OYW-7T-Zo0"/>
+                            <constraint firstItem="zk3-Vg-hUi" firstAttribute="top" secondItem="bro-2L-Hwm" secondAttribute="bottom" constant="8" id="Q6a-LJ-EkM"/>
+                            <constraint firstItem="TcN-lX-R1A" firstAttribute="width" secondItem="2MZ-vG-8zS" secondAttribute="width" multiplier="0.8" id="SNT-FJ-nms"/>
+                            <constraint firstItem="TcN-lX-R1A" firstAttribute="height" secondItem="2MZ-vG-8zS" secondAttribute="height" multiplier="0.08" id="Svo-wS-GdH"/>
+                            <constraint firstItem="zk3-Vg-hUi" firstAttribute="centerX" secondItem="2MZ-vG-8zS" secondAttribute="centerX" id="TfA-im-1tG"/>
+                            <constraint firstItem="zk3-Vg-hUi" firstAttribute="width" secondItem="wdg-96-cto" secondAttribute="width" multiplier="0.8" id="Xwq-xS-o3U"/>
+                            <constraint firstItem="TcN-lX-R1A" firstAttribute="top" secondItem="zk3-Vg-hUi" secondAttribute="bottom" constant="8" id="ZlE-6Y-hYa"/>
+                            <constraint firstItem="623-51-FZu" firstAttribute="top" secondItem="TcN-lX-R1A" secondAttribute="bottom" constant="8" id="g9E-D5-RhI"/>
+                            <constraint firstItem="623-51-FZu" firstAttribute="centerX" secondItem="2MZ-vG-8zS" secondAttribute="centerX" id="gG6-vt-1AU"/>
+                            <constraint firstItem="zk3-Vg-hUi" firstAttribute="height" secondItem="wdg-96-cto" secondAttribute="height" multiplier="0.2" id="lEh-NG-Jm2"/>
+                            <constraint firstItem="bro-2L-Hwm" firstAttribute="width" secondItem="wdg-96-cto" secondAttribute="width" multiplier="0.8" id="oPg-Nw-BaY"/>
+                            <constraint firstItem="623-51-FZu" firstAttribute="width" secondItem="wdg-96-cto" secondAttribute="width" multiplier="0.8" id="sRA-c4-L7q"/>
+                            <constraint firstItem="bro-2L-Hwm" firstAttribute="top" secondItem="2MZ-vG-8zS" secondAttribute="top" constant="24" id="ydT-g1-9u7"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="2MZ-vG-8zS"/>
                     </view>
                     <navigationItem key="navigationItem" title="Create Event" id="Hz9-vL-QWO">
