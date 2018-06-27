@@ -34,6 +34,8 @@ class CalendarViewController: UIViewController {
         }
     }
     
+    let calendarDaysOffset: Int = 5
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         calendarCollectionView.delegate = self
@@ -72,7 +74,7 @@ class CalendarViewController: UIViewController {
     }
     
     @IBAction func createEventPressed(_ sender: UIButton) {
-        print("Show create event form")
+        
     }
     
 }
@@ -85,36 +87,42 @@ extension CalendarViewController: CreateEventViewControllerDelegate {
 
 extension CalendarViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard indexPath.row + 1 > calendarDaysOffset else { return }
         if let currectSelectedDay = self.currentSelectedDay {
-            let oldIndexPath = IndexPath(row: currectSelectedDay-1, section: 0)
+            let oldIndexPath = IndexPath(row: currectSelectedDay-1 + calendarDaysOffset, section: 0)
             let oldCalendarCell = collectionView.cellForItem(at: oldIndexPath) as! CalendarCollectionViewCell
             oldCalendarCell.calendarIndicatorView.layer.borderWidth = 0
             oldCalendarCell.calendarIndicatorView.layer.borderColor = UIColor.clear.cgColor
         }
-        currentSelectedDay = indexPath.row + 1
+        currentSelectedDay = indexPath.row + 1 - calendarDaysOffset
         let calendarCell = collectionView.cellForItem(at: indexPath) as! CalendarCollectionViewCell
         calendarCell.calendarIndicatorView.layer.borderWidth = 1.5
-        calendarCell.calendarIndicatorView.layer.borderColor = UIColor(displayP3Red: 139/255, green: 0, blue: 0, alpha: 1).cgColor
+        calendarCell.calendarIndicatorView.layer.borderColor = borderColor
         calendarEventsTableView.reloadData()
     }
 }
 
 extension CalendarViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 31
+        return 30 + calendarDaysOffset
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let calendarCell = collectionView.dequeueReusableCell(withReuseIdentifier: "calendar cell", for: indexPath) as! CalendarCollectionViewCell
-        if currentSelectedDay == indexPath.row + 1 {
+        if indexPath.row + 1 <= calendarDaysOffset {
+            calendarCell.dayLabel.isHidden = true
+        } else {
+            calendarCell.dayLabel.isHidden = false
+        }
+        if currentSelectedDay == indexPath.row + 1 - calendarDaysOffset{
             calendarCell.calendarIndicatorView.layer.borderWidth = 1.5
             calendarCell.calendarIndicatorView.layer.borderColor = borderColor
         } else {
             calendarCell.calendarIndicatorView.layer.borderWidth = 0
             calendarCell.calendarIndicatorView.layer.borderColor = UIColor.clear.cgColor
         }
-        calendarCell.dayLabel.text = "\(indexPath.row + 1)"
-        guard let dayEvents = events[indexPath.row + 1] else {
+        calendarCell.dayLabel.text = "\(indexPath.row + 1 - calendarDaysOffset)"
+        guard let dayEvents = events[indexPath.row + 1 - calendarDaysOffset] else {
             calendarCell.calendarIndicatorView.backgroundColor = UIColor.clear
             return calendarCell
         }
