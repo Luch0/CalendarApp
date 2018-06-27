@@ -80,7 +80,6 @@ struct EventsAPIClient {
     
     
     func deleteEvent(event: Event, completionHandler: @escaping (URLResponse) -> Void, errorHandler: @escaping (Error) -> Void) {
-        print(event._id!)
         let stringURL = "http://localhost:8000/events/\(event._id!)"
         guard let url = URL(string: stringURL) else {
             errorHandler(AppError.badURL(str: stringURL))

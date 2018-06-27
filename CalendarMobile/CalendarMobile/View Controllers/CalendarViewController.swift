@@ -13,6 +13,9 @@ class CalendarViewController: UIViewController {
     @IBOutlet weak var calendarEventsTableView: UITableView!
     @IBOutlet weak var createEventButton: UIButton!
     
+    var eventIndicatorColor = UIColor(displayP3Red: 1, green: 80/255, blue: 80/255, alpha: 1)
+    var borderColor = UIColor(displayP3Red: 150/255, green: 0, blue: 0, alpha: 1).cgColor
+    
     var currentSelectedDay: Int? {
         didSet {
             if createEventButton.layer.opacity == 1.0 { return }
@@ -90,8 +93,8 @@ extension CalendarViewController: UICollectionViewDelegate {
         }
         currentSelectedDay = indexPath.row + 1
         let calendarCell = collectionView.cellForItem(at: indexPath) as! CalendarCollectionViewCell
-        calendarCell.calendarIndicatorView.layer.borderWidth = 1.0
-        calendarCell.calendarIndicatorView.layer.borderColor = UIColor.blue.cgColor
+        calendarCell.calendarIndicatorView.layer.borderWidth = 1.5
+        calendarCell.calendarIndicatorView.layer.borderColor = UIColor(displayP3Red: 139/255, green: 0, blue: 0, alpha: 1).cgColor
         calendarEventsTableView.reloadData()
     }
 }
@@ -104,8 +107,8 @@ extension CalendarViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let calendarCell = collectionView.dequeueReusableCell(withReuseIdentifier: "calendar cell", for: indexPath) as! CalendarCollectionViewCell
         if currentSelectedDay == indexPath.row + 1 {
-            calendarCell.calendarIndicatorView.layer.borderWidth = 1
-            calendarCell.calendarIndicatorView.layer.borderColor = UIColor.blue.cgColor
+            calendarCell.calendarIndicatorView.layer.borderWidth = 1.5
+            calendarCell.calendarIndicatorView.layer.borderColor = borderColor
         } else {
             calendarCell.calendarIndicatorView.layer.borderWidth = 0
             calendarCell.calendarIndicatorView.layer.borderColor = UIColor.clear.cgColor
@@ -116,7 +119,7 @@ extension CalendarViewController: UICollectionViewDataSource {
             return calendarCell
         }
         if dayEvents.count >= 0 {
-            calendarCell.calendarIndicatorView.backgroundColor = UIColor.green
+            calendarCell.calendarIndicatorView.backgroundColor = eventIndicatorColor
         } else {
             calendarCell.calendarIndicatorView.backgroundColor = UIColor.clear
         }

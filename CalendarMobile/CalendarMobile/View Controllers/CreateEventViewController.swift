@@ -36,15 +36,29 @@ class CreateEventViewController: UIViewController {
             return
         }
         
+        guard !eventTitleTextField.text!.isEmpty else {
+            showAlert(title: "Error", message: "Must enter a title for the event")
+            return
+        }
+        
         let units: Set<Calendar.Component> = [.hour, .minute]
         let compsStart = Calendar.current.dateComponents(units, from: eventStartTimePicker.date)
         let startTimeStr = "\(compsStart.hour!):\(formatMinute(minutes: compsStart.minute!))"
         let compsEnd = Calendar.current.dateComponents(units, from: eventEndTimePicker.date)
         let endTimeStr = "\(compsEnd.hour!):\(formatMinute(minutes: compsEnd.minute!))"
         
-        let eventToCreate = Event(_id: nil, title: eventTitleTextField.text!, description: eventDescriptionTextView.text, startTime: eventStartTimePicker.date.timeIntervalSince1970, endTime: eventEndTimePicker.date.timeIntervalSince1970, day: day, month: month, year: year, startTimeStr: startTimeStr, endTimeStr: endTimeStr)
+        guard eventStartTimePicker.date < eventEndTimePicker.date else {
+            showAlert(title: "Error", message: "Cannot create event with that time!")
+            return
+        }
+        
+        var eventDescriptionText = "No description"
+        if !eventDescriptionTextView.text.isEmpty {
+            eventDescriptionText = eventDescriptionTextView.text
+        }
+        
+        let eventToCreate = Event(_id: nil, title: eventTitleTextField.text!, description: eventDescriptionText, startTime: eventStartTimePicker.date.timeIntervalSince1970, endTime: eventEndTimePicker.date.timeIntervalSince1970, day: day, month: month, year: year, startTimeStr: startTimeStr, endTimeStr: endTimeStr)
         EventsAPIClient.manager.createEvent(event: eventToCreate, completionHandler: { (response) in
-            print((response as! HTTPURLResponse).statusCode)
             self.delegate?.didCreateNewEvent()
         }, errorHandler: { print($0) })
         self.dismiss(animated: true, completion: nil)
@@ -69,6 +83,13 @@ class CreateEventViewController: UIViewController {
     
     @IBAction func cancelPressed(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    func showAlert(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .default) { alert in }
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
     }
 }
 
